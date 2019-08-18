@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="pinterest" content="nopin">
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<meta name="generator" content="Hugo 0.55.6" />
+
+
+
+<link rel="canonical" href="http://example.org/posts/angularjs/creating-custom-directives/">
+
+
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/solarized_dark.min.css">
+    <title>Creating Custom Directives - My New Hugo Site</title>
+    
+<meta name="description" content="What are Directives? At a high level, directives are markers on a DOM element (such as an attribute, element name, comment or CSS class) that tell AngularJS&amp;rsquo;s HTML compiler ($compile) to attach a specified behavior to that DOM element (e.g. via event listeners), or even to transform the DOM element and its children.고수준에서 지시자들은 AngularJS의 HTML 컴파일러가 지정된 동작을 DOM 요소들에 첨부하도록 지시하는 DOM 요소의 마커들입니다. 심지어 DOM 요소와 그 자식을 변형할 수 있습니다.">
+
+<meta property="og:title" content="Creating Custom Directives - My New Hugo Site">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://example.org/posts/angularjs/creating-custom-directives/">
+<meta property="og:image" content="http://example.org/images/default.png">
+<meta property="og:site_name" content="My New Hugo Site">
+<meta property="og:description" content="What are Directives? At a high level, directives are markers on a DOM element (such as an attribute, element name, comment or CSS class) that tell AngularJS&amp;rsquo;s HTML compiler ($compile) to attach a specified behavior to that DOM element (e.g. via event listeners), or even to transform the DOM element and its children.고수준에서 지시자들은 AngularJS의 HTML 컴파일러가 지정된 동작을 DOM 요소들에 첨부하도록 지시하는 DOM 요소의 마커들입니다. 심지어 DOM 요소와 그 자식을 변형할 수 있습니다.">
+<meta property="og:locale" content="ja_JP">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="My New Hugo Site">
+<meta name="twitter:url" content="http://example.org/posts/angularjs/creating-custom-directives/">
+<meta name="twitter:title" content="Creating Custom Directives - My New Hugo Site">
+<meta name="twitter:description" content="What are Directives? At a high level, directives are markers on a DOM element (such as an attribute, element name, comment or CSS class) that tell AngularJS&amp;rsquo;s HTML compiler ($compile) to attach a specified behavior to that DOM element (e.g. via event listeners), or even to transform the DOM element and its children.고수준에서 지시자들은 AngularJS의 HTML 컴파일러가 지정된 동작을 DOM 요소들에 첨부하도록 지시하는 DOM 요소의 마커들입니다. 심지어 DOM 요소와 그 자식을 변형할 수 있습니다.">
+<meta name="twitter:image" content="http://example.org/images/default.png">
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "NewsArticle",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id":"http:\/\/example.org\/"
+    },
+    "headline": "Creating Custom Directives - My New Hugo Site",
+    "image": {
+      "@type": "ImageObject",
+      "url": "http:\/\/example.org\/images\/default.png",
+      "height": 800,
+      "width": 800
+    },
+    "datePublished": "2019-06-29T20:09:14JST",
+    "dateModified": "2019-06-29T20:09:14JST",
+    "author": {
+      "@type": "Person",
+      "name": "My New Hugo Site"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "My New Hugo Site",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "http:\/\/example.org\/images/logo.png",
+        "width": 600,
+        "height": 60
+      }
+    },
+    "description": "What are Directives? At a high level, directives are markers on a DOM element (such as an attribute, element name, comment or CSS class) that tell AngularJS\x26rsquo;s HTML compiler ($compile) to attach a specified behavior to that DOM element (e.g. via event listeners), or even to transform the DOM element and its children.\n고수준에서 지시자들은 AngularJS의 HTML 컴파일러가 지정된 동작을 DOM 요소들에 첨부하도록 지시하는 DOM 요소의 마커들입니다. 심지어 DOM 요소와 그 자식을 변형할 수 있습니다."
+  }
+</script>
+
+
+    <link href="http://example.org/css/styles.css" rel="stylesheet">
+    
+
+  </head>
+
+  <body>
+    
+    
+    
+
+    <header class="l-header">
+      <nav class="navbar navbar-default">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://example.org/">My New Hugo Site</a>
+          </div>
+
+          
+
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <div class="container">
+        
+<div class="row">
+  <div class="col-md-8">
+
+    <nav class="p-crumb">
+      <ol class="breadcrumb">
+        <li><a href="http://example.org/"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+        
+        <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="http://example.org/posts/" itemprop="url"><span itemprop="title">posts</span></a></li>
+        
+        <li class="active">Creating Custom Directives</li>
+      </ol>
+    </nav>
+
+    <article class="single">
+  <header>
+    <ul class="p-facts">
+      <li><i class="fa fa-calendar" aria-hidden="true"></i><time datetime="2019-06-29T20:09:14JST">Jun 29, 2019</time></li>
+      <li><i class="fa fa-bookmark" aria-hidden="true"></i><a href="http://example.org/posts/">posts</a></li>
+      
+    </ul>
+
+    <h1 class="title">Creating Custom Directives</h1>
+  </header>
+
+  
+
+  <div class="article-body">
+
+<h2 id="what-are-directives">What are Directives?</h2>
+
+<p>At a high level, directives are markers on a DOM element (such as an attribute, element name, comment or CSS class) that tell AngularJS&rsquo;s HTML compiler ($compile) to attach a specified behavior to that DOM element (e.g. via event listeners), or even to transform the DOM element and its children.<br />
+고수준에서 지시자들은 AngularJS의 HTML 컴파일러가 지정된 동작을 DOM 요소들에 첨부하도록 지시하는 DOM 요소의 마커들입니다. 심지어 DOM 요소와 그 자식을 변형할 수 있습니다.</p>
+
+<p>AngularJS comes with a set of these directives built-in, like ngBind, ngModel, and ngClass. Much like you create controllers and services, you can create your own directives for AngularJS to use. When AngularJS bootstraps your application, the HTML compiler traverses the DOM matching directives against the DOM elements.<br />
+AngularJS는 내장된 일련의 지시자들을 포함하고 있습니다. 컨트롤러와 서비스를 생성하는것 처럼 AngularJS에서 사용할 당신의 지시자를 생성할 수 있습니다. AngularJS가 당신의 앱을 부트스트랩하면 HTML 컴파일러는 DOM 요소에 대하여 DOM 대응 지시자를 탐색합니다.</p>
+
+<blockquote>
+<p>What does it mean to &ldquo;compile&rdquo; an HTML template? For AngularJS, &ldquo;compilation&rdquo; means attaching directives to the HTML to make it interactive. The reason we use the term &ldquo;compile&rdquo; is that the recursive process of attaching directives mirrors the process of compiling source code in compiled programming languages.</p>
+</blockquote>
+
+<p>HTML 템플릿을 컴파일하는것은 무엇을 의미합니까? AngularJS에서 컴파일은 HTML에 지시자를 첨부하여 대화형으로 만드는 것을 의미합니다. 우리가 컴파일이란 용어를 사용하는 이유는 지시자를 첨부하는 반복적인 과정이 소스 코드를 컴파일된 프로그래밍 언어로 컴파일 하는 과정을 반영하기 때문입니다.</p>
+
+<h2 id="matching-directives">Matching Directives</h2>
+
+<p>Before we can write a directive, we need to know how AngularJS&rsquo;s HTML compiler determines when to use a given directive.<br />
+지시자를 작성하기 전에 우리는 AngularJS의 HTML 컴파일러가 주어진 지시자를 사용할 시기를 결정하는 방법을 알아야 합니다.</p>
+
+<p>Similar to the terminology used when an element matches a selector, we say an element matches a directive when the directive is part of its declaration.<br />
+요소가 선택자와 일치할때 사용하는 용어와 비슷합니다. 우리는 지시자가 선언의 일부일때 요소가 지시자와 일치한다고 이야기 합니다.</p>
+
+<p>In the following example, we say that the <code>&lt;input&gt;</code> element matches the ngModel directive<br />
+다음 예제에서 우리는 <code>input</code> 요소가 ngModel 지시자와 일치한다고 말합니다.</p>
+
+<pre><code>&lt;input ng-model=&quot;foo&quot;&gt;
+</code></pre>
+
+<p>The following <code>&lt;input&gt;</code> element also matches ngModel:</p>
+
+<pre><code>&lt;input data-ng-model=&quot;foo&quot;&gt;
+</code></pre>
+
+<p>And the following <code>&lt;person&gt;</code> element matches the person directive:</p>
+
+<pre><code>&lt;person&gt;{{name}}&lt;/person&gt;
+</code></pre>
+</div>
+
+  <footer class="article-footer">
+    
+    
+    
+    
+    
+    
+  </footer>
+
+</article>
+
+
+    
+  </div>
+
+  <div class="col-md-4">
+    
+<aside class="l-sidebar">
+
+  <section class="panel panel-default">
+    <div class="panel-heading">
+      <div class="panel-title">LATESTS</div>
+    </div>
+    <div class="list-group">
+      
+      <a href="http://example.org/posts/angularjs/creating-custom-directives/" class="list-group-item">Creating Custom Directives</a>
+      
+    </div>
+  </section>
+
+  
+  <section class="panel panel-default">
+    <div class="panel-heading">
+      <div class="panel-title">CATEGORY</div>
+    </div>
+    <div class="list-group">
+      
+    </div>
+  </section>
+  
+  <section class="panel panel-default">
+    <div class="panel-heading">
+      <div class="panel-title">TAG</div>
+    </div>
+    <div class="list-group">
+      
+    </div>
+  </section>
+  
+
+</aside>
+
+
+  </div>
+</div>
+
+      </div>
+    </main>
+
+    <footer class="l-footer">
+      <div class="container">
+        <p><span class="h-logo">&copy; My New Hugo Site</span></p>
+        <aside>
+          <p>Powered by <a href="https://gohugo.io/">Hugo</a>.</p>
+          <p><a href="https://github.com/dim0627/hugo_theme_beg">Beg</a> designed by <a href="http://yet.unresolved.xyz/">Daisuke Tsuji</a>.</p>
+        </aside>
+      </div>
+    </footer>
+
+    <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
+

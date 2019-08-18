@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>My New Hugo Site</title>
+    <link>http://example.org/</link>
+    <description>Recent content on My New Hugo Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 29 Jun 2019 20:09:14 +0900</lastBuildDate>
+    
+	<atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Creating Custom Directives</title>
+      <link>http://example.org/posts/angularjs/creating-custom-directives/</link>
+      <pubDate>Sat, 29 Jun 2019 20:09:14 +0900</pubDate>
+      
+      <guid>http://example.org/posts/angularjs/creating-custom-directives/</guid>
+      <description>What are Directives? At a high level, directives are markers on a DOM element (such as an attribute, element name, comment or CSS class) that tell AngularJS&amp;rsquo;s HTML compiler ($compile) to attach a specified behavior to that DOM element (e.g. via event listeners), or even to transform the DOM element and its children.
+고수준에서 지시자들은 AngularJS의 HTML 컴파일러가 지정된 동작을 DOM 요소들에 첨부하도록 지시하는 DOM 요소의 마커들입니다. 심지어 DOM 요소와 그 자식을 변형할 수 있습니다.</description>
+    </item>
+    
+  </channel>
+</rss>
